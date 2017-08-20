@@ -169,7 +169,7 @@ var icsFormatter = function() {
 					calendarEvents[i].rrul,
 					calendarEvents[i].url,
 					calendarEvents[i].categories,
-					calendarEvents[i].alarms,
+					calendarEvents[i].alarms
 				);
 				if (t)
 					formatedEvents.push(t);
@@ -244,7 +244,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		function loadHTML() {
 			$('body').append('<div id="icsFormatterbg" class="icsFormatterbg">\
 				<div id="icsFormatterContainer">\
-					<h3>Course Table ICS Formatter <small>ver. 0.2 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
+					<h3>Course Table ICS Formatter <small>ver. 0.3 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
 					<button id="icsFormatterClose" class="ui-button">X</button>\
 					<h3 style="text-align:center;"><strong>Semester：<span id="icsFormatterSemester"></span></strong></h3>\
 					<p style="text-align:center;"><span id="icsFormatterTasks"></span> tasks found.</p><br/>\
@@ -335,7 +335,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 
 	function download() {
 		function getMonday() {
-			return new Date($('#icsFormatterDate')[0].value);
+			return new Date($('#icsFormatterDate')[0].value.replace(/-/g, "/"));
 		}
 		var firstMonday = getMonday();
 		for (var i in eventsList)
