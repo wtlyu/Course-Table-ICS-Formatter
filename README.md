@@ -2,7 +2,7 @@
 
 This project is designed to export your course table into ICS calendar file which is widely used in calendar apps on all of platform.
 
-此项目只在快速导出课程表数据为ICS文件，以便在各大常用日历系统中快捷地导入。
+此项目旨在快速导出课程表数据为ICS文件，以便在各大常用日历系统中快捷地导入。
 
 # Install
 
@@ -23,5 +23,9 @@ Just drag this [INSTALL] button to your favorites of your browser.
 3. 选择学期第一个周一，点击 [Download] 即可。
 
 # Other
+
+Tips: Send the ics file to your mailbox will have a better experience!
+
+小贴士： 把ics文件发送到自己的邮箱会有意想不到的效果！
 
 [求Star](https://github.com/eastpiger/Course-Table-ICS-Formatter)
