@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+# Overview
 
-You can use the [editor on GitHub](https://github.com/eastpiger/Course-Table-ICS-Formatter/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This project is designed to export your course table into ICS calendar file which is widely used in calendar apps on all of platform.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+此项目只在快速导出课程表数据为ICS文件，以便在各大常用日历系统中快捷地导入。
 
-### Markdown
+# Install
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Just drag this [INSTALL] button to your favorites of your browser.
 
-```markdown
-Syntax highlighted code block
+非常简单，将下面的安装按钮拖到收藏夹就可以了。
 
-# Header 1
-## Header 2
-### Header 3
+[![Export Course Table](_installbutton-reg@2x.png)](javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js')))
 
-- Bulleted
-- List
+# How to use
 
-1. Numbered
-2. List
+1. Open [course table page on eams](http://eams.shanghaitech.edu.cn/eams/courseTableForStd.action).
+2. Click [Export Course Table] in your favorites.
+3. Select the first Monday in the semester and click [Download].
 
-**Bold** and _Italic_ and `Code` text
+1. 进入 [教学管理系统-我的课程表](http://eams.shanghaitech.edu.cn/eams/courseTableForStd.action)。
+2. 点击收藏夹中的 [Export Course Table]。
+3. 选择学期第一个周一，点击 [Download] 即可。
 
-[Link](url) and ![Image](src)
-```
+# Other
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/eastpiger/Course-Table-ICS-Formatter/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+[求Star](https://github.com/eastpiger/Course-Table-ICS-Formatter)
