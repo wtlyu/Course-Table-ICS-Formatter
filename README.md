@@ -6,7 +6,7 @@ This project is designed to export your course table into ICS calendar file whic
 
 ## Update
 
-The latest version is 0.4.1.
+The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.4.1-green.svg).
 - Improve support of Safari and old browsers.
 - Edit Markdown.
 - Support unregular tasks.
@@ -17,19 +17,13 @@ We might use [FileSaver.js](https://github.com/eligrey/FileSaver.js) and [Blob.j
 
 项目使用了 [FileSaver.js](https://github.com/eligrey/FileSaver.js) 和 [Blob.js](https://github.com/eligrey/Blob.js) 以保证兼容性。
 
-| Browser        | Constructs as | Support    | Dependencies |
-| -------------- | ------------- | ------------ | ------------ |
-| Firefox 20+    | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Firefox < 20   | data: URI     | Yes (you should change the filename to *.ics)           | [FileSaver.js](https://github.com/eligrey/FileSaver.js) [Blob.js](https://github.com/eligrey/Blob.js) |
-| Chrome         | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Chrome for Android | Blob      | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Edge           | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| IE 10+         | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Opera 15+      | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Opera < 15     | data: URI     | Yes (you should change the filename to *.ics)           | [FileSaver.js](https://github.com/eligrey/FileSaver.js) [Blob.js](https://github.com/eligrey/Blob.js) |
-| Safari 6.1+*   | Blob          | Yes (you should change the filename to *.ics)           | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
-| Safari < 6     | data: URI     | Yes (you should change the filename to *.ics)           | [FileSaver.js](https://github.com/eligrey/FileSaver.js) [Blob.js](https://github.com/eligrey/Blob.js) |
-| Safari 10.1+   | Blob          | Yes          | [FileSaver.js](https://github.com/eligrey/FileSaver.js)         |
+![FireFox 20+](https://img.shields.io/badge/FireFox%2020%2B-Support-green.svg)
+![Chrome](https://img.shields.io/badge/Chrome-Support-green.svg)
+![Chrome for Android](https://img.shields.io/badge/Chrome%20for%20Android-Support-green.svg)
+![Edge](https://img.shields.io/badge/Edge-Support-green.svg)
+![Internet Explorer 10+](https://img.shields.io/badge/Internet%20Explorer%2010%2B-Support-green.svg)
+![Opera 15+](https://img.shields.io/badge/Opera%2015%2B-Support-green.svg)
+![Safari 10.1+](https://img.shields.io/badge/Safari%2010.1%2B-Support-green.svg)
 
 # How to use
 
