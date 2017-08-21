@@ -380,7 +380,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		$('#icsFormatterSemester').html($("#courseTableForm input.calendar-text")[0].value);
 		window.icsObj = icsFormatter();
 
-		icsObj.setCalendarName("Hello Calendar");
+		icsObj.setCalendarName($("#courseTableForm input.calendar-text")[0].value);
 
 		for (var i in data.activities)
 			for (var j in data.activities[i])
