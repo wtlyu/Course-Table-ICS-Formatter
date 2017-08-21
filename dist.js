@@ -1,4 +1,13 @@
-
+/*
+    datepickr 3.0 - pick your date not your nose
+    https://github.com/joshsalverda/datepickr
+    Copyright © 2014 Josh Salverda <josh.salverda@gmail.com>
+    This program is free software. It comes without any warranty, to
+    the extent permitted by applicable law. You can redistribute it
+    and/or modify it under the terms of the Do What The Fuck You Want
+    To Public License, Version 2, as published by Sam Hocevar. See
+    http://www.wtfpl.net/ for more details.
+*/
 var datepickr=function(d,c){var f,h,a=[],k;datepickr.prototype=datepickr.init.prototype;h=function(a){a._datepickr&&a._datepickr.destroy();a._datepickr=new datepickr.init(a,c);return a._datepickr};if(d.nodeName)return h(d);f=datepickr.prototype.querySelectorAll(d);if(1===f.length)return h(f[0]);for(k=0;k<f.length;k++)a.push(h(f[k]));return a};
 datepickr.init=function(d,c){var f,h,a=this,k={dateFormat:"F j, Y",altFormat:null,altInput:null,minDate:null,maxDate:null,shorthandCurrentMonth:!1},l=document.createElement("div"),t=document.createElement("span"),u=document.createElement("table"),v=document.createElement("tbody"),g,m=new Date,B,n,p,w,C,r,x,D,E,s,F,G,y,H,z,A,I;l.className="datepickr-calendar";t.className="datepickr-current-month";c=c||{};B=function(){g=document.createElement("div");g.className="datepickr-wrapper";a.element.parentNode.insertBefore(g,
 a.element);g.appendChild(a.element)};f={year:function(){return m.getFullYear()},month:{integer:function(){return m.getMonth()},string:function(a){var e=m.getMonth();return p(e,a)}},day:function(){return m.getDate()}};h={string:function(){return p(a.currentMonthView,a.config.shorthandCurrentMonth)},numDays:function(){return 1===a.currentMonthView&&(0===a.currentYearView%4&&0!==a.currentYearView%100||0===a.currentYearView%400)?29:a.l10n.daysInMonth[a.currentMonthView]}};n=function(b,e){var q="",d=new Date(e),
@@ -13,6 +22,33 @@ a.element.nodeName?"focus":"click"};H=function(){a.addEventListener(a.element,y(
 datepickr.init.prototype={hasClass:function(d,c){return d.classList.contains(c)},addClass:function(d,c){d.classList.add(c)},removeClass:function(d,c){d.classList.remove(c)},forEach:function(d,c){[].forEach.call(d,c)},querySelectorAll:document.querySelectorAll.bind(document),isArray:Array.isArray,addEventListener:function(d,c,f,h){d.addEventListener(c,f,h)},removeEventListener:function(d,c,f,h){d.removeEventListener(c,f,h)},l10n:{weekdays:{shorthand:"Sun Mon Tue Wed Thu Fri Sat".split(" "),longhand:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" ")},
 months:{shorthand:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),longhand:"January February March April May June July August September October November December".split(" ")},daysInMonth:[31,28,31,30,31,30,31,31,30,31,30,31],firstDayOfWeek:0}};
 
+/* Blob.js
+ * A Blob implementation.
+ * 2014-07-24
+ *
+ * By Eli Grey, http://eligrey.com
+ * By Devin Samarin, https://github.com/dsamarin
+ * License: MIT
+ *   See https://github.com/eligrey/Blob.js/blob/master/LICENSE.md
+ */
+ /*! @source http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
+(function(a){a.URL=a.URL||a.webkitURL;if(a.Blob&&a.URL){try{new Blob;return}catch(d){}}var c=a.BlobBuilder||a.WebKitBlobBuilder||a.MozBlobBuilder||(function(p){var g=function(z){return Object.prototype.toString.call(z).match(/^\[object\s(.*)\]$/)[1]},y=function m(){this.data=[]},w=function i(B,z,A){this.data=B;this.size=B.length;this.type=z;this.encoding=A},q=y.prototype,v=w.prototype,s=p.FileReaderSync,e=function(z){this.code=this[this.name=z]},r=("NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR "+"NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR").split(" "),u=r.length,l=p.URL||p.webkitURL||p,t=l.createObjectURL,f=l.revokeObjectURL,k=l,o=p.btoa,j=p.atob,h=p.ArrayBuffer,n=p.Uint8Array,x=/^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/;w.fake=v.fake=true;while(u--){e.prototype[r[u]]=u+1}if(!l.createObjectURL){k=p.URL=function(A){var z=document.createElementNS("http://www.w3.org/1999/xhtml","a"),B;z.href=A;if(!("origin" in z)){if(z.protocol.toLowerCase()==="data:"){z.origin=null}else{B=A.match(x);z.origin=B&&B[1]}}return z}}k.createObjectURL=function(A){var B=A.type,z;if(B===null){B="application/octet-stream"}if(A instanceof w){z="data:"+B;if(A.encoding==="base64"){return z+";base64,"+A.data}else{if(A.encoding==="URI"){return z+","+decodeURIComponent(A.data)}}if(o){return z+";base64,"+o(A.data)}else{return z+","+encodeURIComponent(A.data)}}else{if(t){return t.call(l,A)}}};k.revokeObjectURL=function(z){if(z.substring(0,5)!=="data:"&&f){f.call(l,z)}};q.append=function(D){var F=this.data;if(n&&(D instanceof h||D instanceof n)){var E="",A=new n(D),B=0,C=A.length;for(;B<C;B++){E+=String.fromCharCode(A[B])}F.push(E)}else{if(g(D)==="Blob"||g(D)==="File"){if(s){var z=new s;F.push(z.readAsBinaryString(D))}else{throw new e("NOT_READABLE_ERR")}}else{if(D instanceof w){if(D.encoding==="base64"&&j){F.push(j(D.data))}else{if(D.encoding==="URI"){F.push(decodeURIComponent(D.data))}else{if(D.encoding==="raw"){F.push(D.data)}}}}else{if(typeof D!=="string"){D+=""}F.push(unescape(encodeURIComponent(D)))}}}};q.getBlob=function(z){if(!arguments.length){z=null}return new w(this.data.join(""),z,"raw")};q.toString=function(){return"[object BlobBuilder]"};v.slice=function(C,z,B){var A=arguments.length;if(A<3){B=null}return new w(this.data.slice(C,A>1?z:this.data.length),B,this.encoding)};v.toString=function(){return"[object Blob]"};v.close=function(){this.size=0;delete this.data};return y}(a));a.Blob=function(j,h){var l=h?(h.type||""):"";var g=new c();if(j){for(var k=0,e=j.length;k<e;k++){if(Uint8Array&&j[k] instanceof Uint8Array){g.append(j[k].buffer)}else{g.append(j[k])}}}var f=g.getBlob(l);if(!f.slice&&f.webkitSlice){f.slice=f.webkitSlice}return f};var b=Object.getPrototypeOf||function(e){return e.__proto__};a.Blob.prototype=b(new a.Blob())}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content||this));
+
+/* FileSaver
+ * A saveAs() FileSaver implementation.
+ * 1.3.2
+ * 2016-06-16 18:25:19
+ *
+ * By Eli Grey, http://eligrey.com
+ * License: MIT
+ *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+ */
+var saveAs=saveAs||function(e){"use strict";if(typeof e==="undefined"||typeof navigator!=="undefined"&&/MSIE [1-9]\./.test(navigator.userAgent)){return}var t=e.document,n=function(){return e.URL||e.webkitURL||e},r=t.createElementNS("http://www.w3.org/1999/xhtml","a"),o="download"in r,a=function(e){var t=new MouseEvent("click");e.dispatchEvent(t)},i=/constructor/i.test(e.HTMLElement)||e.safari,f=/CriOS\/[\d]+/.test(navigator.userAgent),u=function(t){(e.setImmediate||e.setTimeout)(function(){throw t},0)},s="application/octet-stream",d=1e3*40,c=function(e){var t=function(){if(typeof e==="string"){n().revokeObjectURL(e)}else{e.remove()}};setTimeout(t,d)},l=function(e,t,n){t=[].concat(t);var r=t.length;while(r--){var o=e["on"+t[r]];if(typeof o==="function"){try{o.call(e,n||e)}catch(a){u(a)}}}},p=function(e){if(/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type)){return new Blob([String.fromCharCode(65279),e],{type:e.type})}return e},v=function(t,u,d){if(!d){t=p(t)}var v=this,w=t.type,m=w===s,y,h=function(){l(v,"writestart progress write writeend".split(" "))},S=function(){if((f||m&&i)&&e.FileReader){var r=new FileReader;r.onloadend=function(){var t=f?r.result:r.result.replace(/^data:[^;]*;/,"data:attachment/file;");var n=e.open(t,"_blank");if(!n)e.location.href=t;t=undefined;v.readyState=v.DONE;h()};r.readAsDataURL(t);v.readyState=v.INIT;return}if(!y){y=n().createObjectURL(t)}if(m){e.location.href=y}else{var o=e.open(y,"_blank");if(!o){e.location.href=y}}v.readyState=v.DONE;h();c(y)};v.readyState=v.INIT;if(o){y=n().createObjectURL(t);setTimeout(function(){r.href=y;r.download=u;a(r);h();c(y);v.readyState=v.DONE});return}S()},w=v.prototype,m=function(e,t,n){return new v(e,t||e.name||"download",n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){t=t||e.name||"download";if(!n){e=p(e)}return navigator.msSaveOrOpenBlob(e,t)}}w.abort=function(){};w.readyState=w.INIT=0;w.WRITING=1;w.DONE=2;w.error=w.onwritestart=w.onprogress=w.onwrite=w.onabort=w.onerror=w.onwriteend=null;return m}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content);if(typeof module!=="undefined"&&module.exports){module.exports.saveAs=saveAs}else if(typeof define!=="undefined"&&define!==null&&define.amd!==null){define("FileSaver.js",function(){return saveAs})}
+
+/* icsFormatter
+ * A ics file format generator
+ * By eastpiger
+ */
 var icsFormatter = function() {
 	'use strict';
 
@@ -188,9 +224,29 @@ var icsFormatter = function() {
 		'download': function(filename, ext) {
 			var formatedEvents = this.formatAllEvents();
 			if (formatedEvents) {
+
 				ext = (typeof ext !== 'undefined') ? ext : '.ics';
 				filename = (typeof filename !== 'undefined') ? filename : 'calendar';
-				window.open("data:text/calendar;charset=UTF-8," + encodeURI(formatedEvents));
+
+				var blob = new Blob([formatedEvents], {type: 'attachment/csv;charset=utf-8'});
+				saveAs(blob, filename + ext);
+
+				// var supportsDownloadAttribute = 'download' in document.createElement('a');
+
+				// if(supportsDownloadAttribute) {
+				// 	var link = document.createElement('a');
+				// 	link.setAttribute('target', '_blank');
+				// 	link.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(formatedEvents));
+				// 	link.setAttribute('download', filename + ext);
+				// 	link.click();
+				// } else if(typeof safari !== 'undefined') {
+				// 	window.open('data:attachment/csv;charset=utf-8,' + encodeURI(formatedEvents));
+				// } else {
+				// 	var blob = new Blob([formatedEvents], {type: 'attachment/csv;charset=utf-8'});
+				// 	saveAs(blob, filename + ext);
+				// }
+
+				//window.open("data:text/calendar;charset=UTF-8," + encodeURI(formatedEvents));
 			} else return false;
 		}
 	};
@@ -244,7 +300,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		function loadHTML() {
 			$('body').append('<div id="icsFormatterbg" class="icsFormatterbg">\
 				<div id="icsFormatterContainer">\
-					<h3>Course Table ICS Formatter <small>ver. 0.3 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
+					<h3>Course Table ICS Formatter <small>ver. 0.4 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
 					<button id="icsFormatterClose" class="ui-button">X</button>\
 					<h3 style="text-align:center;"><strong>Semester：<span id="icsFormatterSemester"></span></strong></h3>\
 					<p style="text-align:center;"><span id="icsFormatterTasks"></span> tasks found.</p><br/>\
@@ -303,7 +359,20 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 
 			icsObj.addEvent(title,description, place, begin, end, rrul, url, categories, alarms);
 		} else {
+			for (var i in data.vaildWeeks)
+				if (data.vaildWeeks[i] == 1) {
+					var begin = new Date(firstMonday.getTime() + ((i - 1) * 7 + weekday - 1) * 24 * 60 * 60000);
+					begin.setHours(classTable[startclass - 1][0]);
+					begin.setMinutes(classTable[startclass - 1][1]);
+					begin.setSeconds(0);
+					var end = new Date(begin.getTime());
+					end.setHours(classTable[startclass + last - 2][2]);
+					end.setMinutes(classTable[startclass + last - 2][3]);
+					end.setSeconds(0);
+					var rrul = {FREQ: 'WEEKLY', COUNT: 1, INTERVAL: 1};
 
+					icsObj.addEvent(title,description, place, begin, end, rrul, url, categories, alarms);
+				}
 		}
 	}
 
