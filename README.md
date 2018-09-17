@@ -6,10 +6,10 @@ This project is designed to export your course table into ICS calendar file whic
 
 ## Update
 
-The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.4.1-green.svg).
-- Improve support of Safari and old browsers.
+The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.5.0-green.svg).
+- Fix a bug.
+- Add a advanced-reminder time setting box.
 - Edit Markdown.
-- Support unregular tasks.
 
 ## Supported browsers
 
@@ -33,16 +33,18 @@ Just drag this [INSTALL] button to your favorites of your browser.
 
 非常简单，将下面的安装按钮拖到收藏夹就可以了。
 
-[![Export Course Table](installbutton.png) Export Course Table](javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js')))
+[![Export Course Table](installbutton.png) Export Course Table](javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://dokidokitreehouse.club/station/dist.js')))
 
 Or copy these code into your navigation panel. Remember add ```javascript:``` before the code after paste
 
 或者将如下代码复制到地址栏运行。请注意复制后在代码开头重新添加 ```javascript:``` 。
 
 ``` javascript
-javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js'))
+javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://dokidokitreehouse.club/station/dist.js'))
 ```
+Or you could just copy these code into console and run it.
 
+其实你也可以把它复制到console里运行.
 ## Usage
 
 Make sure you can open this page.
@@ -63,4 +65,4 @@ Tips: Send the ics file to your mailbox will have a better experience!
 
 小贴士： 把ics文件发送到自己的邮箱会有意想不到的效果！
 
-[求Star](https://github.com/eastpiger/Course-Table-ICS-Formatter)
+
