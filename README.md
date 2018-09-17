@@ -6,7 +6,7 @@ This project is designed to export your course table into ICS calendar file whic
 
 ## Update
 
-The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.4.1-green.svg).
+The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.5.0-green.svg).
 - Fix a bug.
 - Add an advance-reminder time setting.
 - Edit Markdown.
