@@ -248,7 +248,11 @@ var icsFormatter = function() {
 
 				//window.open("data:text/calendar;charset=UTF-8," + encodeURI(formatedEvents));
 			} else return false;
-		}
+		},
+
+			'clear': function () {
+				calendarEvents = [];
+			}
 	};
 };
 
@@ -290,7 +294,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 			styleElement.id = 'styles_js';
 			document.getElementsByTagName('head')[0].appendChild(styleElement);
 			styleElement.appendChild(document.createTextNode('#icsFormatterbg{display:none;position:fixed;top:0px;left:0px;bottom:0px;right:0px;z-index:90001;background:rgba(0, 0, 0, 0.7);}\
-				#icsFormatterContainer{position:relative;background:#E3E3E3;border-radius:3px;box-shadow: 0 1px 2px #aaa;margin:100px auto;width:600px;max-width:80%;height:300px;max-height:60%;padding: 20px;}\
+				#icsFormatterContainer{position:relative;background:#E3E3E3;border-radius:3px;box-shadow: 0 1px 2px #aaa;margin:100px auto;width:600px;max-width:80%;height:350px;max-height:60%;padding: 20px;}\
 				#icsFormatterClose{position:absolute;right:20px;top:20px;padding:5px;}\
 				#icsFormatterDownload{padding:10px;}\
 				#icsFormatterDate{text-align:center}\
@@ -300,11 +304,12 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		function loadHTML() {
 			$('body').append('<div id="icsFormatterbg" class="icsFormatterbg">\
 				<div id="icsFormatterContainer">\
-					<h3>Course Table ICS Formatter <small>ver. 0.4 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
+					<h3>Course Table ICS Formatter <small>ver. 0.5 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://github.com/eEhyQx"> eEhyQx </a> <a href="https://github.com/xa0082249956"> xa0082249956 <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
 					<button id="icsFormatterClose" class="ui-button">X</button>\
 					<h3 style="text-align:center;"><strong>Semester：<span id="icsFormatterSemester"></span></strong></h3>\
 					<p style="text-align:center;"><span id="icsFormatterTasks"></span> tasks found.</p><br/>\
 					<p style="text-align:center;">Tell me the Monday of week #1 in this semester：<br/><input type="text" id="icsFormatterDate" readonly></p><br/>\
+					<p style="text-align:center;">And how long you want be reminded before the class? (Minutes) <br/><input type="text" style="text-align:center;" id="icsFormatterTrigger" value="10"></p>\
 					<p style="text-align:center;"><button id="icsFormatterDownload" class="ui-button ui-widget">Download</button></p>\
 					</div>\
 				</div>');
@@ -324,7 +329,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		var place = data.roomName;
 		var categories = ["ShanghaiTech", data.teacherName, "Course Table ICS Formatter"];
 		var alarms = [
-			{ ACTION: 'AUDIO', TRIGGER: '-PT10M' }
+            { ACTION: 'AUDIO', TRIGGER: '-PT' + document.getElementById('icsFormatterTrigger').value + 'M' }
 		];
 		var url = '';
 
@@ -403,6 +408,8 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 	}
 
 	function download() {
+        window.icsObj.clear();
+
 		function getMonday() {
 			return new Date($('#icsFormatterDate')[0].value.replace(/-/g, "/"));
 		}
