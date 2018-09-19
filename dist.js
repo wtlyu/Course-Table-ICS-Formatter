@@ -1,12 +1,12 @@
 /*
-    datepickr 3.0 - pick your date not your nose
-    https://github.com/joshsalverda/datepickr
-    Copyright © 2014 Josh Salverda <josh.salverda@gmail.com>
-    This program is free software. It comes without any warranty, to
-    the extent permitted by applicable law. You can redistribute it
-    and/or modify it under the terms of the Do What The Fuck You Want
-    To Public License, Version 2, as published by Sam Hocevar. See
-    http://www.wtfpl.net/ for more details.
+	datepickr 3.0 - pick your date not your nose
+	https://github.com/joshsalverda/datepickr
+	Copyright © 2014 Josh Salverda <josh.salverda@gmail.com>
+	This program is free software. It comes without any warranty, to
+	the extent permitted by applicable law. You can redistribute it
+	and/or modify it under the terms of the Do What The Fuck You Want
+	To Public License, Version 2, as published by Sam Hocevar. See
+	http://www.wtfpl.net/ for more details.
 */
 var datepickr=function(d,c){var f,h,a=[],k;datepickr.prototype=datepickr.init.prototype;h=function(a){a._datepickr&&a._datepickr.destroy();a._datepickr=new datepickr.init(a,c);return a._datepickr};if(d.nodeName)return h(d);f=datepickr.prototype.querySelectorAll(d);if(1===f.length)return h(f[0]);for(k=0;k<f.length;k++)a.push(h(f[k]));return a};
 datepickr.init=function(d,c){var f,h,a=this,k={dateFormat:"F j, Y",altFormat:null,altInput:null,minDate:null,maxDate:null,shorthandCurrentMonth:!1},l=document.createElement("div"),t=document.createElement("span"),u=document.createElement("table"),v=document.createElement("tbody"),g,m=new Date,B,n,p,w,C,r,x,D,E,s,F,G,y,H,z,A,I;l.className="datepickr-calendar";t.className="datepickr-current-month";c=c||{};B=function(){g=document.createElement("div");g.className="datepickr-wrapper";a.element.parentNode.insertBefore(g,
@@ -248,11 +248,40 @@ var icsFormatter = function() {
 
 				//window.open("data:text/calendar;charset=UTF-8," + encodeURI(formatedEvents));
 			} else return false;
+		},
+		'clear': function () {
+			calendarEvents = [];
 		}
 	};
 };
 
-if (Boolean(window.$) && Boolean(window.table0)) {
+var VER = "0.5";
+
+var rawdata = undefined;
+var mode = undefined;
+
+function check_page_allow() {
+	try {
+		rawdata = $($("#frmright")[0].contentDocument).find("#div-table tbody")[0];
+		mode = "grad";
+		return true;
+	}
+	catch(error) {
+		console.error(error);
+	}
+
+	try {
+		rawdata = table0;
+		mode = "eams";
+		return true;
+	}
+	catch(error) {
+		console.error(error);
+	}
+
+}
+
+if (Boolean(window.$) && check_page_allow()) {
 	var classTable = [
 		[8, 15, 9, 0],
 		[9, 10, 9, 55],
@@ -277,10 +306,12 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		var containerElement = document.getElementById('icsFormatterbg');
 		if (containerElement) containerElement.parentElement.removeChild(containerElement);
 
-		if (table0)
-			for (var i in table0.activities)
-				for (var j in table0.activities[i])
-					table0.activities[i][j].icsFormatted = undefined;
+		if (mode == "eams")
+			if (window.table0)
+				for (var i in table0.activities)
+					for (var j in table0.activities[i])
+						table0.activities[i][j].icsFormatted = undefined;
+		else if (mode == "grad") {};
 	}
 
 	function init() {
@@ -300,7 +331,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		function loadHTML() {
 			$('body').append('<div id="icsFormatterbg" class="icsFormatterbg">\
 				<div id="icsFormatterContainer">\
-					<h3>Course Table ICS Formatter <small>ver. 0.4 <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
+					<h3>Course Table ICS Formatter <small>ver. ' + VER + ' <a href="http://www.eastpiger.com">eastpiger</a> <a href="https://www.geekpie.org">GeekPie</a></small></h3><br/><br/>\
 					<button id="icsFormatterClose" class="ui-button">X</button>\
 					<h3 style="text-align:center;"><strong>Semester：<span id="icsFormatterSemester"></span></strong></h3>\
 					<p style="text-align:center;"><span id="icsFormatterTasks"></span> tasks found.</p><br/>\
@@ -315,7 +346,8 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 		loadHTML();
 
 		var t = new Date();
-		$('#icsFormatterDate')[0].value = t.getFullYear() + '-' + (t.getMonth() + 1) + '-' + t.getDate();
+		var t2 = new Date(t - (t.getDay() - 1) * 24*3600*1000);
+		$('#icsFormatterDate')[0].value = t2.getFullYear() + '-' + (t2.getMonth() + 1) + '-' + t2.getDate();
 		datepickr('#icsFormatterDate', { dateFormat: 'Y-n-j' });
 	}
 
@@ -377,32 +409,176 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 	}
 
 	function process(data) {
-		$('#icsFormatterSemester').html($("#courseTableForm input.calendar-text")[0].value);
+		function uniq(array){
+			var temp = []; //一个新的临时数组
+			for(var i = 0; i < array.length; i++){
+				if(temp.indexOf(array[i]) == -1){
+					temp.push(array[i]);
+				}
+			}
+			return temp;
+		}
+
+		function extractWeek(str) {
+			weekStr = /第[\d,-]+周/i.exec(str);
+			excludeStr = /除第[\d,-]+周/i.exec(str);
+
+			if (weekStr && (weekStr.length > 0)) weekStr = weekStr[0];
+			if (excludeStr && (excludeStr.length > 0)) excludeStr = excludeStr[0];
+
+			weeks = []
+			if (weekStr) {
+				if (/-/.exec(weekStr)) {
+					// a-b mode
+					[start, end] = weekStr.match(/\d+/ig);
+					for (var i = start; i <= end; i++)
+						weeks.push(i);
+				} else if (/,/.exec(weekStr)) {
+					// a,b,c mode
+					weeks = weekStr.match(/\d+/ig);
+				} else {
+					// a
+					weeks = weekStr.match(/\d+/ig);
+				}
+			}
+
+			exclude = []
+			if (excludeStr) {
+				if (/-/.exec(excludeStr)) {
+					// a-b mode
+					[start, end] = excludeStr.match(/\d+/ig);
+					for (var i = 0; i <= end; i++)
+						exclude.push(i);
+				} else if (/,/.exec(excludeStr)) {
+					// a,b,c mode
+					exclude = excludeStr.match(/\d+/ig);
+				} else {
+					// a
+					exclude = excludeStr.match(/\d+/ig);
+				}
+			}
+
+			for (var i = 0; i < exclude.length; i++) {
+				for (var j = 0; j < weeks.length; j++) {
+					if (weeks[j] == exclude[i]) {
+						weeks.splice(j, 1);
+						j = j - 1;
+					}
+				}
+			}
+
+			weeks.map(x => Number(x));
+
+			var result = [];
+
+			var max_week = Math.max(...weeks);
+
+			result[max_week] = 0;
+			result.fill(0);
+
+			weeks.map(x => result[x] = 1);
+
+			return result;
+		}
+
+		var semester = "";
+		if (mode == "eams")
+			semester = $("#courseTableForm input.calendar-text")[0].value;
+		else if (mode == "grad")
+			semester = $($($("#frmright")[0].contentDocument).find("#div-table div")[0]).html();
+
+		$('#icsFormatterSemester').html(semester);
 		window.icsObj = icsFormatter();
 
-		icsObj.setCalendarName($("#courseTableForm input.calendar-text")[0].value);
+		icsObj.setCalendarName(semester);
 
-		for (var i in data.activities)
-			for (var j in data.activities[i])
-				if (data.activities[i][j].icsFormatted == undefined) {
-					var last = 0;
-					for (var k = i; k < ((Math.floor(i / 13) + 1) * 13); k++) {
-						var hasMerged = false;
-						for (var l in data.activities[k])
-							if ((data.activities[k][l].icsFormatted == undefined) &&
-								data.activities[i][j].isSame(data.activities[k][l]))
-								hasMerged = true;
-						if (hasMerged == false) break;
-						last++;
+		if (mode == "eams") {
+			for (var i in data.activities)
+				for (var j in data.activities[i])
+					if (data.activities[i][j].icsFormatted == undefined) {
+						var last = 0;
+						for (var k = i; k < ((Math.floor(i / 13) + 1) * 13); k++) {
+							var hasMerged = false;
+							for (var l in data.activities[k])
+								if ((data.activities[k][l].icsFormatted == undefined) &&
+									data.activities[i][j].isSame(data.activities[k][l]))
+									hasMerged = true;
+							if (hasMerged == false) break;
+							last++;
+						}
+						eventsList.push({
+							obj: data.activities[i][j],
+							weekday: Math.floor(i / 13) + 1,
+							startclass: Math.floor(i % 13) + 1,
+							last: last
+						});
+						data.activities[i][j].icsFormatted = true;
 					}
-					eventsList.push({obj: data.activities[i][j], weekday: Math.floor(i / 13) + 1, startclass: Math.floor(i % 13) + 1, last: last});
-					data.activities[i][j].icsFormatted = true;
+		} else if (mode == "grad") {
+
+			rows = $(data).children().toArray();
+
+			for (i in rows) {
+				if (i == 0) continue;
+				var row = $(rows[i]).children("td").toArray();
+				for (j in row) {
+					if (j == 0) continue;
+					var content = $(row[j]).html();
+					if (content) {
+						contents = content
+							.replace(/<[^>]+>/g," ")
+							.replace(/&nbsp;/ig, " ")
+							.trim().split(/\s+/);
+
+						teachers = [];
+						times = [];
+						locations = [];
+
+						for (item in contents) {
+							if (item == 0) continue;
+							if (item % 3 == 1) times.push(contents[item]);
+							if (item % 3 == 2) teachers.push(contents[item]);
+							if (item % 3 == 0) locations.push(contents[item]);
+						}
+
+						teachers = teachers.join("、");
+						times = uniq(times);
+						locations = uniq(locations).join("、");
+
+						finalTimes = [];
+						for (item in times) {
+							times[item] = extractWeek(times[item]);
+							times[item].map(function(x, idx){
+								if (finalTimes[idx] == undefined)
+									finalTimes[idx] = 0;
+								finalTimes[idx] = (x == 1)?1:finalTimes[idx];
+							});
+						}
+
+						eventsList.push({
+							obj: {
+								courseName: contents[0],
+								roomName: locations,
+								teacherName: teachers,
+								vaildWeeks: finalTimes,
+							},
+							weekday: Number(j),
+							startclass: Math.floor(i % 13),
+							last: Number(row[j].getAttribute("rowspan"))
+						});
+						// console.log("周" + j, "第" + i + "节", "持续" + row[j].getAttribute("rowspan") + "节" , content);
+					}
 				}
+			}
+		}
 
 		$('#icsFormatterTasks').html(eventsList.length);
+		// console.log(eventsList)
 	}
 
 	function download() {
+        window.icsObj.clear();
+
 		function getMonday() {
 			return new Date($('#icsFormatterDate')[0].value.replace(/-/g, "/"));
 		}
@@ -420,7 +596,7 @@ if (Boolean(window.$) && Boolean(window.table0)) {
 	clear();
 	init();
 
-	process(table0);
+	process(rawdata);
 
 	$('#icsFormatterDownload').click(download);
 	$('#icsFormatterClose').click(closeWindow);

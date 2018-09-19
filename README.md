@@ -1,3 +1,5 @@
+# TIPS: :exclamation: YOU MUST READ ALL THIS FILE BEFORE USING IT! :exclamation:
+
 # Overview
 
 This project is designed to export your course table into ICS calendar file which is widely used in calendar apps on all of platform.
@@ -6,10 +8,11 @@ This project is designed to export your course table into ICS calendar file whic
 
 ## Update
 
-The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.4.1-green.svg).
+The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.5-green.svg).
 - Improve support of Safari and old browsers.
 - Edit Markdown.
 - Support unregular tasks.
+- Support gratuated student system.
 
 ## Supported browsers
 
@@ -47,15 +50,15 @@ javascript:void(function(u,s){s=document.body.appendChild(document.createElement
 
 Make sure you can open this page.
 
-1. Open [course table page on eams](http://ids.shanghaitech.edu.cn/authserver/login?service=http%3A%2F%2Feams.shanghaitech.edu.cn%2Feams%2FcourseTableForStd.action).
+1. For undergratuated student, open [course table page on eams](http://ids.shanghaitech.edu.cn/authserver/login?service=http%3A%2F%2Feams.shanghaitech.edu.cn%2Feams%2FcourseTableForStd.action). For gratuated student, Open [Gratuated Student System](http://grad.shanghaitech.edu.cn) and navigate to [我的培养] -> [查看课表].
 2. Click [Export Course Table] in your favorites. Or paste the running code into your navigation panel.
-3. Select the first Monday in the semester and click [Download].
+3. :exclamation: Select the first Monday in the semester and click [Download].
 
 请先保证你可以通过某些方法打开现在这个页面。
 
-1. 进入 [教学管理系统-我的课程表](http://ids.shanghaitech.edu.cn/authserver/login?service=http%3A%2F%2Feams.shanghaitech.edu.cn%2Feams%2FcourseTableForStd.action)。
+1. 对于本科生，进入 [教学管理系统-我的课程表](http://ids.shanghaitech.edu.cn/authserver/login?service=http%3A%2F%2Feams.shanghaitech.edu.cn%2Feams%2FcourseTableForStd.action)。对于研究生，进入 [研究生系统](http://grad.shanghaitech.edu.cn) 并依次点击 [我的培养] -> [查看课表]。
 2. 点击收藏夹中的 [Export Course Table]。或者将代码复制到地址栏运行。
-3. 选择学期第一个周一，点击 [Download] 即可。
+3. :exclamation: 选择学期第一个周一，点击 [Download] 即可。
 
 # Other
 
@@ -63,4 +66,4 @@ Tips: Send the ics file to your mailbox will have a better experience!
 
 小贴士： 把ics文件发送到自己的邮箱会有意想不到的效果！
 
-[求Star](https://github.com/eastpiger/Course-Table-ICS-Formatter)
+[求Star :star: ](https://github.com/eastpiger/Course-Table-ICS-Formatter)
