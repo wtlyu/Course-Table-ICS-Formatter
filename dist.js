@@ -255,7 +255,7 @@ var icsFormatter = function() {
 	};
 };
 
-var VER = "0.5";
+var VER = "0.5.1";
 
 var rawdata = undefined;
 var mode = undefined;
@@ -517,14 +517,18 @@ if (Boolean(window.$) && check_page_allow()) {
 		} else if (mode == "grad") {
 
 			rows = $(data).children().toArray();
+			rows.shift();
+			rows = rows.map(function(x) {
+				t = $(x).children("td").toArray();
+				t.shift();
+				return t;
+			});
 
-			for (i in rows) {
-				if (i == 0) continue;
-				var row = $(rows[i]).children("td").toArray();
-				for (j in row) {
-					if (j == 0) continue;
-					var content = $(row[j]).html();
-					if (content) {
+			for (i = 1; i <= 7; i++) {
+				for (j = 1; j <= 13; j++) {
+					var curTd = rows[j - 1].shift();
+					if ($(curTd).html()) {
+						content = $(curTd).html();
 						contents = content
 							.replace(/<[^>]+>/g," ")
 							.replace(/&nbsp;/ig, " ")
@@ -562,12 +566,15 @@ if (Boolean(window.$) && check_page_allow()) {
 								teacherName: teachers,
 								vaildWeeks: finalTimes,
 							},
-							weekday: Number(j),
-							startclass: Math.floor(i % 13),
-							last: Number(row[j].getAttribute("rowspan"))
+							weekday: Number(i),
+							startclass: Math.floor(j % 13),
+							last: Number(curTd.getAttribute("rowspan")?Number(curTd.getAttribute("rowspan")):1)
 						});
 						// console.log("周" + j, "第" + i + "节", "持续" + row[j].getAttribute("rowspan") + "节" , content);
+						// console.log("周" + i, "第" + j + "节", "持续" + curTd.getAttribute("rowspan") + "节" , $(curTd).html());
 					}
+					if (curTd.getAttribute("rowspan"))
+						j += Number(curTd.getAttribute("rowspan")) - 1;
 				}
 			}
 		}
