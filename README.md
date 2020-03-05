@@ -53,8 +53,8 @@ Create a favorite page manually.
 
 手工创建收藏夹项目
 
-- **Name: ** Export Course Table
-- **URL: ** `javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js'))`
+- Name:  `Export Course Table`
+- URL:  `javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js'))`
 
 **CHOICE 3**
 
