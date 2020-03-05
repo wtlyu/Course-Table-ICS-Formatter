@@ -255,7 +255,7 @@ var icsFormatter = function() {
 	};
 };
 
-var VER = "0.5.1";
+var VER = "0.6";
 
 var rawdata = undefined;
 var mode = undefined;
@@ -282,7 +282,7 @@ function check_page_allow() {
 }
 
 if (Boolean(window.$) && check_page_allow()) {
-	var classTable = [
+	var classTables = [[
 		[8, 15, 9, 0],
 		[9, 10, 9, 55],
 		[10, 15, 11, 0],
@@ -296,7 +296,21 @@ if (Boolean(window.$) && check_page_allow()) {
 		[18, 40, 19, 25],
 		[19, 35, 20, 20],
 		[20, 30, 21, 15]
-	]
+	], [
+		[8, 15, 9, 0],
+		[9, 10, 9, 55],
+		[10, 15, 11, 0],
+		[11, 10, 11, 55],
+		[13, 0, 13, 45],
+		[13, 55, 14, 40],
+		[15, 0, 15, 45],
+		[15, 55, 16, 40],
+		[16, 50, 17, 35],
+		[18, 00, 18, 45],
+		[18, 55, 19, 40],
+		[19, 50, 20, 35],
+		[20, 45, 21, 30]
+	],]
 	var eventsList = [];
 
 	function clear() {
@@ -321,7 +335,7 @@ if (Boolean(window.$) && check_page_allow()) {
 			styleElement.id = 'styles_js';
 			document.getElementsByTagName('head')[0].appendChild(styleElement);
 			styleElement.appendChild(document.createTextNode('#icsFormatterbg{display:none;position:fixed;top:0px;left:0px;bottom:0px;right:0px;z-index:90001;background:rgba(0, 0, 0, 0.7);}\
-				#icsFormatterContainer{position:relative;background:#E3E3E3;border-radius:3px;box-shadow: 0 1px 2px #aaa;margin:100px auto;width:600px;max-width:80%;height:300px;max-height:60%;padding: 20px;}\
+				#icsFormatterContainer{position:relative;background:#E3E3E3;border-radius:3px;box-shadow: 0 1px 2px #aaa;margin:100px auto;width:600px;max-width:80%;height:340px;max-height:60%;padding: 20px;}\
 				#icsFormatterClose{position:absolute;right:20px;top:20px;padding:5px;}\
 				#icsFormatterDownload{padding:10px;}\
 				#icsFormatterDate{text-align:center}\
@@ -336,6 +350,7 @@ if (Boolean(window.$) && check_page_allow()) {
 					<h3 style="text-align:center;"><strong>Semester：<span id="icsFormatterSemester"></span></strong></h3>\
 					<p style="text-align:center;"><span id="icsFormatterTasks"></span> tasks found.</p><br/>\
 					<p style="text-align:center;">Tell me the Monday of week #1 in this semester：<br/><input type="text" id="icsFormatterDate" readonly></p><br/>\
+					<p style="text-align:center;">Use new time schedule? （使用2020抗疫期间新课表时间）<input type="checkbox" id="icsFormatterNewTimeSchedule" checked> YES</p><br/>\
 					<p style="text-align:center;"><button id="icsFormatterDownload" class="ui-button ui-widget">Download</button></p>\
 					</div>\
 				</div>');
@@ -351,7 +366,7 @@ if (Boolean(window.$) && check_page_allow()) {
 		datepickr('#icsFormatterDate', { dateFormat: 'Y-n-j' });
 	}
 
-	function addClass(icsObj, firstMonday, data, weekday, startclass, last) {
+	function addClass(icsObj, firstMonday, newTimeScheduleEnabled, data, weekday, startclass, last) {
 		var title = data.courseName;
 		var place = data.roomName;
 		var categories = ["ShanghaiTech", data.teacherName, "Course Table ICS Formatter"];
@@ -359,6 +374,9 @@ if (Boolean(window.$) && check_page_allow()) {
 			{ ACTION: 'AUDIO', TRIGGER: '-PT10M' }
 		];
 		var url = '';
+
+		var classTable = classTables[0];
+		if (newTimeScheduleEnabled) classTable = classTables[1];
 
 		var description = data.courseName + " " + data.roomName + " " + data.teacherName; //'A very long and boring description of what is the agenda of this super exclusiv pow-wow';
 
@@ -389,7 +407,7 @@ if (Boolean(window.$) && check_page_allow()) {
 			end.setSeconds(0);
 			var rrul = {FREQ: 'WEEKLY', COUNT: countweek, INTERVAL: intervalweek};
 
-			icsObj.addEvent(title,description, place, begin, end, rrul, url, categories, alarms);
+			icsObj.addEvent(title, description, place, begin, end, rrul, url, categories, alarms);
 		} else {
 			for (var i in data.vaildWeeks)
 				if (data.vaildWeeks[i] == 1) {
@@ -403,7 +421,7 @@ if (Boolean(window.$) && check_page_allow()) {
 					end.setSeconds(0);
 					var rrul = {FREQ: 'WEEKLY', COUNT: 1, INTERVAL: 1};
 
-					icsObj.addEvent(title,description, place, begin, end, rrul, url, categories, alarms);
+					icsObj.addEvent(title, description, place, begin, end, rrul, url, categories, alarms);
 				}
 		}
 	}
@@ -589,9 +607,14 @@ if (Boolean(window.$) && check_page_allow()) {
 		function getMonday() {
 			return new Date($('#icsFormatterDate')[0].value.replace(/-/g, "/"));
 		}
+		function getNewTimeScheduleEnabled() {
+			return $('#icsFormatterNewTimeSchedule')[0].checked;
+		}
 		var firstMonday = getMonday();
+		var newTimeScheduleEnabled = getNewTimeScheduleEnabled()
+		console.log(newTimeScheduleEnabled)
 		for (var i in eventsList)
-			addClass(window.icsObj, firstMonday, eventsList[i].obj, eventsList[i].weekday, eventsList[i].startclass, eventsList[i].last);
+			addClass(window.icsObj, firstMonday, newTimeScheduleEnabled, eventsList[i].obj, eventsList[i].weekday, eventsList[i].startclass, eventsList[i].last);
 
 		window.icsObj.download();
 	}

@@ -8,7 +8,10 @@ This project is designed to export your course table into ICS calendar file whic
 
 ## Update
 
-The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.5.1-green.svg).
+The latest version is ![FireFox 20+](https://img.shields.io/badge/Version-0.6-green.svg).
+- Support new time schedule during the anti-COVID-2019.
+
+0.5.1
 - Improve support of Safari and old browsers.
 - Edit Markdown.
 - Support unregular tasks.
@@ -32,11 +35,28 @@ We might use [FileSaver.js](https://github.com/eligrey/FileSaver.js) and [Blob.j
 
 ## Install
 
+You have three choices. Some of the installation may failed in some web browser, you can try other ways.
+
+如下有三种安装方法，在某些浏览器中一些安装方法可能会失效，你可以考虑试试其他的。
+
+**CHOICE 1**
+
 Just drag this [INSTALL] button to your favorites of your browser.
 
 非常简单，将下面的安装按钮拖到收藏夹就可以了。
 
 [![Export Course Table](installbutton.png) Export Course Table](javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js')))
+
+**CHOICE 2**
+
+Create a favorite page manually.
+
+手工创建收藏夹项目
+
+- **Name: ** Export Course Table
+- **URL: ** `javascript:void(function(u,s){s=document.body.appendChild(document.createElement('script'));s.src=u+'?ts='+Date.now();s.charset='UTF-8'}('https://eastpiger.github.io/Course-Table-ICS-Formatter/dist.js'))`
+
+**CHOICE 3**
 
 Or copy these code into your navigation panel. Remember add ```javascript:``` before the code after paste
 
